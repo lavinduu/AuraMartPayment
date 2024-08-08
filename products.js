@@ -1,14 +1,13 @@
 const hamburger = document.querySelector(".hamburger");
-const addToCartButtons = document.querySelectorAll('#add-to-cart');
+const addToCartButtons = document.querySelectorAll('.add-to-cart');
 const cartTableBody = document.querySelector('#cart-table tbody');
 const proceedToPayButton = document.querySelector('#proceed-to-pay');
 const navLinks = document.querySelector(".nav-links");
 const links = document.querySelectorAll(".nav-links li");
 const buttons = document.querySelectorAll('.button-container button');
 
-
-hamburger.addEventListener('click', ()=>{
-   //Animate Links
+hamburger.addEventListener('click', () => {
+    //Animate Links
     navLinks.classList.toggle("open");
     links.forEach(link => {
         link.classList.toggle("fade");
@@ -18,25 +17,23 @@ hamburger.addEventListener('click', ()=>{
     hamburger.classList.toggle("toggle");
 });
 
-
 buttons.forEach(button => {
     button.addEventListener('click', () => {
         const targetId = button.getAttribute('data-target');
         const targetElement = document.getElementById(targetId);
-        
+
         if (targetElement) {
             targetElement.scrollIntoView({ behavior: 'smooth' });
         }
     });
 });
 
-
 addToCartButtons.forEach(button => {
     button.addEventListener('click', function (event) {
         const productContent = event.target.closest('.content');
-        const productName = productContent.querySelector('#name').textContent;
-        const productPrice = parseFloat(productContent.querySelector('#price').textContent);
-        const productQuantity = parseFloat(productContent.querySelector('#quantity').value);
+        const productName = productContent.querySelector('.name').textContent;
+        const productPrice = parseFloat(productContent.querySelector('.price').textContent);
+        const productQuantity = parseFloat(productContent.querySelector('.quantity').value);
 
         if (!productQuantity || productQuantity <= 0) {
             alert('Please enter a valid quantity.');
@@ -78,7 +75,6 @@ addToCartButtons.forEach(button => {
     });
 });
 
-
 function saveCartToLocalStorage() {
     const cartItems = Array.from(cartTableBody.querySelectorAll('tr')).map(row => {
         return {
@@ -91,8 +87,7 @@ function saveCartToLocalStorage() {
     localStorage.setItem('cartItems', JSON.stringify(cartItems));
 }
 
-proceedToPayButton.addEventListener('click', function(){
+proceedToPayButton.addEventListener('click', function () {
     saveCartToLocalStorage();
     window.location.href = './order.html';
-})
-
+});
